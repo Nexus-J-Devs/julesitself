@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { ShowroomHeader } from './components/ShowroomHeader';
 import { ShowroomFooter } from './components/ShowroomFooter';
 import { HomePage } from './pages/HomePage';
@@ -25,6 +25,12 @@ const ScrollToTop: React.FC = () => {
   }, [pathname, hash]);
 
   return null;
+};
+
+// Client-side redirect component preserving query parameters (e.g. ?name=)
+const ShortDemoRedirect: React.FC<{ targetSlug: string }> = ({ targetSlug }) => {
+  const location = useLocation();
+  return <Navigate to={`/demo/${targetSlug}${location.search}`} replace />;
 };
 
 // Layout wrapper for standard Showroom pages
@@ -60,33 +66,39 @@ export const App: React.FC = () => {
         {/* Website Request Form */}
         <Route path="/request" element={<RequestPage />} />
 
-        {/* Demo Preview View (Full Screen Viewport Switcher) */}
+        {/* Demo Preview View (Full Screen Viewport Switcher & Multi-page Engine) */}
         <Route path="/demo/:templateSlug" element={<DemoPreviewPage />} />
+        <Route path="/demo/:templateSlug/:page" element={<DemoPreviewPage />} />
+        <Route path="/demo/:templateSlug/product/:productId" element={<DemoPreviewPage />} />
+
+        {/* Short Direct Shareable Demo Routes preserving query strings */}
+        <Route path="/restaurant" element={<ShortDemoRedirect targetSlug="savore-bistro" />} />
+        <Route path="/bakery" element={<ShortDemoRedirect targetSlug="maison-crumb" />} />
+        <Route path="/spa" element={<ShortDemoRedirect targetSlug="lumere-wellness" />} />
+        <Route path="/salon" element={<ShortDemoRedirect targetSlug="velours-salon" />} />
+        <Route path="/beauty" element={<ShortDemoRedirect targetSlug="velours-salon" />} />
+        <Route path="/fitness" element={<ShortDemoRedirect targetSlug="forme-studio" />} />
+        <Route path="/realestate" element={<ShortDemoRedirect targetSlug="aurelia-properties" />} />
+        <Route path="/real-estate" element={<ShortDemoRedirect targetSlug="aurelia-properties" />} />
+        <Route path="/fashion" element={<ShortDemoRedirect targetSlug="noire-atelier" />} />
+        <Route path="/sneakers" element={<ShortDemoRedirect targetSlug="sole-craft" />} />
+        <Route path="/footwear" element={<ShortDemoRedirect targetSlug="sole-craft" />} />
+        <Route path="/accessories" element={<ShortDemoRedirect targetSlug="aurum-goods" />} />
+        <Route path="/interior" element={<ShortDemoRedirect targetSlug="atelier-north" />} />
+        <Route path="/creative" element={<ShortDemoRedirect targetSlug="studio-kai" />} />
+        <Route path="/events" element={<ShortDemoRedirect targetSlug="verve-events" />} />
+        <Route path="/beauty-products" element={<ShortDemoRedirect targetSlug="botanique-lab" />} />
+        <Route path="/store" element={<ShortDemoRedirect targetSlug="habitat-store" />} />
+        <Route path="/general-store" element={<ShortDemoRedirect targetSlug="habitat-store" />} />
+        <Route path="/home-services" element={<ShortDemoRedirect targetSlug="apex-services" />} />
+        <Route path="/education" element={<ShortDemoRedirect targetSlug="cortex-academy" />} />
 
         {/* Legal & Utility */}
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
 
-        {/* Direct Shareable Category Routes */}
-        <Route path="/spa" element={<CategoryPage categorySlug="spa" />} />
-        <Route path="/beauty" element={<CategoryPage categorySlug="beauty" />} />
-        <Route path="/restaurant" element={<CategoryPage categorySlug="restaurant" />} />
-        <Route path="/fashion" element={<CategoryPage categorySlug="fashion" />} />
-        <Route path="/footwear" element={<CategoryPage categorySlug="footwear" />} />
-        <Route path="/accessories" element={<CategoryPage categorySlug="accessories" />} />
-        <Route path="/interior" element={<CategoryPage categorySlug="interior" />} />
-        <Route path="/real-estate" element={<CategoryPage categorySlug="real-estate" />} />
-        <Route path="/creative" element={<CategoryPage categorySlug="creative" />} />
-        <Route path="/fitness" element={<CategoryPage categorySlug="fitness" />} />
-        <Route path="/events" element={<CategoryPage categorySlug="events" />} />
-        <Route path="/bakery" element={<CategoryPage categorySlug="bakery" />} />
-        <Route path="/beauty-products" element={<CategoryPage categorySlug="beauty-products" />} />
-        <Route path="/general-store" element={<CategoryPage categorySlug="general-store" />} />
-        <Route path="/home-services" element={<CategoryPage categorySlug="home-services" />} />
-        <Route path="/education" element={<CategoryPage categorySlug="education" />} />
-
-        {/* Dynamic Category Fallback Route */}
-        <Route path="/:categorySlug" element={<CategoryPage />} />
+        {/* Category Overview Page Routes */}
+        <Route path="/category/:categorySlug" element={<CategoryPage />} />
 
         {/* 404 Fallback */}
         <Route path="*" element={<NotFoundPage />} />

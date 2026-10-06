@@ -15,7 +15,7 @@ import {
 } from '../components/DemoWebsites';
 
 export const DemoPreviewPage: React.FC = () => {
-  const { templateSlug } = useParams<{ templateSlug: string }>();
+  const { templateSlug, page } = useParams<{ templateSlug: string; page?: string }>();
   const [viewportMode, setViewportMode] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
 
   const template = templateSlug ? getTemplateBySlug(templateSlug) : undefined;
@@ -54,7 +54,9 @@ export const DemoPreviewPage: React.FC = () => {
     const props = {
       businessName: template.demoBusinessName,
       tagline: template.tagline,
-      categorySlug: template.categorySlug
+      categorySlug: template.categorySlug,
+      templateSlug: template.slug,
+      activePage: page || 'home'
     };
 
     switch (template.categorySlug) {

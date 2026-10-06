@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowUpRight, MessageCircle } from 'lucide-react';
-import { getWhatsAppLink, SITE_CONFIG } from '../config/site';
+import { Menu, X, ArrowUpRight, MessageCircle, Send } from 'lucide-react';
+import { getWhatsAppLink, SITE_CONFIG, CONTACT } from '../config/site';
 
 export const ShowroomHeader: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -73,6 +73,16 @@ export const ShowroomHeader: React.FC = () => {
               <MessageCircle className="w-4 h-4 text-emerald-700" />
               WhatsApp
             </a>
+
+            <a
+              href={CONTACT.telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-showroom-muted hover:text-showroom-accent transition-colors flex items-center gap-1.5"
+            >
+              <Send className="w-4 h-4 text-sky-600" />
+              Telegram
+            </a>
           </nav>
 
           {/* Header Action Buttons */}
@@ -137,7 +147,17 @@ export const ShowroomHeader: React.FC = () => {
             className="flex items-center gap-2 text-base font-medium text-emerald-800 py-2"
           >
             <MessageCircle className="w-5 h-5 text-emerald-700" />
-            Discuss on WhatsApp ({SITE_CONFIG.developer.whatsappDisplay})
+            WhatsApp ({CONTACT.whatsappDisplay})
+          </a>
+          <a
+            href={CONTACT.telegramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-2 text-base font-medium text-sky-800 py-2"
+          >
+            <Send className="w-5 h-5 text-sky-600" />
+            Telegram (@{CONTACT.telegramHandle})
           </a>
           <div className="pt-2 border-t border-showroom-border text-xs text-showroom-muted">
             Direct Link Shareable Demos for Business Clients

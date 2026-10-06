@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MessageCircle, ArrowUpRight } from 'lucide-react';
-import { getWhatsAppLink, SITE_CONFIG } from '../config/site';
+import { MessageCircle, ArrowUpRight, Send } from 'lucide-react';
+import { getWhatsAppLink, SITE_CONFIG, CONTACT } from '../config/site';
 import { CATEGORIES } from '../data/categories';
 
 export const ShowroomFooter: React.FC = () => {
@@ -31,11 +31,20 @@ export const ShowroomFooter: React.FC = () => {
                 className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3 py-2 rounded border border-emerald-200 transition-colors"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
-                WhatsApp Direct: {SITE_CONFIG.developer.whatsappDisplay}
+                WhatsApp: {CONTACT.whatsappDisplay}
+              </a>
+              <a
+                href={CONTACT.telegramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs font-semibold text-sky-800 bg-sky-50 hover:bg-sky-100 px-3 py-2 rounded border border-sky-200 transition-colors"
+              >
+                <Send className="w-3.5 h-3.5 text-sky-600" />
+                Telegram: @{CONTACT.telegramHandle}
               </a>
               <Link
                 to="/request"
-                className="inline-flex items-center gap-1 text-xs font-semibold text-showroom-accent hover:underline"
+                className="inline-flex items-center gap-1 text-xs font-semibold text-showroom-accent hover:underline pt-1"
               >
                 Request Custom Website Build
                 <ArrowUpRight className="w-3 h-3" />
@@ -77,7 +86,8 @@ export const ShowroomFooter: React.FC = () => {
             </p>
             <div className="pt-1 space-y-1">
               <div>Email: <a href={`mailto:${SITE_CONFIG.developer.email}`} className="text-showroom-text underline">{SITE_CONFIG.developer.email}</a></div>
-              <div>WhatsApp: <a href={getWhatsAppLink()} className="text-showroom-text underline">{SITE_CONFIG.developer.whatsappDisplay}</a></div>
+              <div>WhatsApp: <a href={getWhatsAppLink()} className="text-showroom-text underline" target="_blank" rel="noopener noreferrer">{CONTACT.whatsappDisplay}</a></div>
+              <div>Telegram: <a href={CONTACT.telegramUrl} className="text-showroom-text underline" target="_blank" rel="noopener noreferrer">@{CONTACT.telegramHandle}</a></div>
               <div className="text-emerald-700 font-medium pt-1">● {SITE_CONFIG.developer.availability}</div>
             </div>
           </div>
